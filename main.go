@@ -6,9 +6,18 @@ import (
 
 func main() {
 	fmt.Println("Hello")
-	fmt.Println(mergerTwoArr([4]int{1, 7, 8, 9}, [5]int{3, 4, 5, 6, 6}))
+	arr1 := [4]int{1, 7, 8, 9}
+	arr2 := [5]int{3, 4, 5, 6, 6}
+	fmt.Printf("Слияние двух отсортированных массивов:\n%v\n%v\n", arr1, arr2)
+	fmt.Println(mergerTwoArr(arr1, arr2))
+
+	arr := [6]int{4, 6, 3, 8, 0, 2}
+	fmt.Printf("Сортировка массива %v 'пузырьком'\n", arr)
+	bubbleSort(&arr)
+	fmt.Println(arr)
 }
-//задача первая
+
+// задача первая
 func mergerTwoArr(ar1 [4]int, ar2 [5]int) (res [9]int) {
 	ind1 := 0
 	ind2 := 0
@@ -37,4 +46,16 @@ func mergerTwoArr(ar1 [4]int, ar2 [5]int) (res [9]int) {
 		}
 	}
 	return
+}
+//сортировка пузырьком
+func bubbleSort(ar *[6]int) {
+	for j := 0; j < len(ar); j++ {
+		for i := 0; i < len(ar)-1-j; i++ {
+			if ar[i] > ar[i+1] {
+				time := ar[i]
+				ar[i] = ar[i+1]
+				ar[i+1] = time
+			}
+		}
+	}
 }
