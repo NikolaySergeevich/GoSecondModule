@@ -21,7 +21,7 @@ func Obj1(fileName string) {
 func newFile(fileName string) {
 	file, err := os.Create(fileName)
 	if err != nil {
-		panic(err)
+		return
 	}
 	defer file.Close()
 	reader := bufio.NewReader(os.Stdin)
@@ -44,11 +44,10 @@ func newFile(fileName string) {
 func oldFile(fileName string) {
 	file, err := os.OpenFile(fileName, os.O_APPEND|os.O_WRONLY, 0600)
 	if err != nil {
-		panic(err)
+		return
 	}
 	countStr := countSTR(fileName) + 1
 	defer file.Close()
-	fmt.Println(countStr)
 	reader := bufio.NewReader(os.Stdin)
 	for {
 		fmt.Println("Введите ваше сообщение")
@@ -69,7 +68,7 @@ func oldFile(fileName string) {
 func countSTR(fileName string) int {
 	file, er := os.Open(fileName)
 	if er != nil {
-		panic(er)
+		return 0
 	}
 	fileScanner := bufio.NewScanner(file)
 	countStr := 0

@@ -5,6 +5,10 @@ import (
 )
 
 func main(){
-	fmt.Println("Hello")
+	fmt.Println("Задание 1")
 	Obj1("Task1.txt")
+	fmt.Println("=========================")
+	fmt.Println("задание 2")
+	fmt.Println(Obj2("Tacsk1.txt"))
+
 }
