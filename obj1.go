@@ -21,8 +21,8 @@ func obj1() {
 		}
 		num, er := strconv.Atoi(stdIn)
 		if er != nil {
-			stdIn = stdIn[:len(stdIn)-1]
 			if stdIn == "exit" {
+				fmt.Println("Завершил программу")
 				break
 			} else {
 				fmt.Println("Вы ввели не число")
