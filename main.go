@@ -33,14 +33,16 @@ func main() {
 	team := Band{0, make(map[int]*User)}
 	mux.HandleFunc("/create", team.Create)
 	mux.HandleFunc("/make_friends", team.Make_friends)
-	mux.HandleFunc("/friends/", team.Friends) //получаем друзей. В запросе указывается ID пользователя
+	mux.HandleFunc("/friends/", team.Friends)
 	mux.HandleFunc("/user", team.UserDel)
 	mux.HandleFunc("/", team.UpdateUser)
 	mux.HandleFunc("/get_all", team.GetAll)
 
 	http.ListenAndServe(":8080", mux)
 }
-
+/*
+Обработчик создаёт нового пользователя
+*/
 func (b *Band) Create(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		content, er := ioutil.ReadAll(r.Body)
@@ -65,7 +67,9 @@ func (b *Band) Create(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusBadGateway)
 }
-
+/*
+Обработчик обрабатывает PUT запрос. Проверяет есть ли заявленные пользователи и добавляет их друг другу в друзья
+*/
 func (b *Band) Make_friends(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "PUT" {
 		content, er := ioutil.ReadAll(r.Body)
@@ -112,7 +116,9 @@ func (b *Band) Make_friends(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusBadGateway)
 }
-
+/*
+Обработчик обработывает GET запрос и отправляет клиенту всех пользователей 
+*/
 func (b *Band) GetAll(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		res := ""
@@ -124,7 +130,9 @@ func (b *Band) GetAll(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusBadGateway)
 }
-
+/*
+Обработчик обрабатывает GET запрос и отправляет клиенту друзей того пользователя, которого он запросил
+*/
 func (b *Band) Friends(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		sl := strings.Split(r.RequestURI, "/")
@@ -155,7 +163,9 @@ func (b *Band) Friends(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusBadGateway)
 }
-
+/*
+Обработчик обрабатывает DELETE запрос и удаляет указанного в теле запроса пользователя
+*/
 func (b *Band) UserDel(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "DELETE" {
 		content, er := ioutil.ReadAll(r.Body)
@@ -196,7 +206,10 @@ func (b *Band) UserDel(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusBadGateway)
 }
-
+/*
+Обработчик обрабатывает UPDATE запрос и обновляет возраст пользователя. ID пользователя указан в запросе. Новый возраст
+лежит в в теле запроса.
+*/
 func (b *Band) UpdateUser(w http.ResponseWriter, r *http.Request){
 	if r.Method == "PUT"{
 		spl := strings.Split(r.RequestURI, "/")
