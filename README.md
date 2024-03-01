@@ -40,6 +40,8 @@ Host: localhost:8080
 ***Советы и рекомендации*
 Воспользуйтесь библиотекой Chi.
 
+Ссылка на [клиент](https://github.com/NikolaySergeevich/ClientForServerJSON)
+
 # Фотоотчёт:
 
 **1 задание**
