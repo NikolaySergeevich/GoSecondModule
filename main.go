@@ -35,7 +35,7 @@ func main() {
 	mux.HandleFunc("/make_friends", team.Make_friends)
 	mux.HandleFunc("/friends/", team.Friends) //получаем друзей. В запросе указывается ID пользователя
 	mux.HandleFunc("/user", team.UserDel)
-	// mux.HandleFunc("/user_id", team.UpdateUser)
+	mux.HandleFunc("/", team.UpdateUser)
 	mux.HandleFunc("/get_all", team.GetAll)
 
 	http.ListenAndServe(":8080", mux)
@@ -196,3 +196,35 @@ func (b *Band) UserDel(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusBadGateway)
 }
+
+func (b *Band) UpdateUser(w http.ResponseWriter, r *http.Request){
+	if r.Method == "PUT"{
+		spl := strings.Split(r.RequestURI, "/")
+		userId := spl[1]
+		id, _ := strconv.Atoi(userId)
+		us, ok := b.Team[id]
+		if !ok {
+			w.WriteHeader(http.StatusBadRequest)
+			w.Write([]byte("Пользователя с id "+ userId + " нет."))
+			return
+		}
+		contant, er := ioutil.ReadAll(r.Body)
+		if er != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte(er.Error()))
+			return
+		}
+		data := make(map[string]int)
+		if er := json.Unmarshal(contant, &data); er!= nil{
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte(er.Error()))
+			return
+		}
+		newAge := data["new age"] 
+		us.Age = strconv.Itoa(newAge)
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("Возраст пользователя успешно обновлён"))
+	}
+	w.WriteHeader(http.StatusBadGateway)
+}
+ 

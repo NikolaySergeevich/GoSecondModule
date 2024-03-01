@@ -61,3 +61,7 @@ Host: localhost:8080
 ![](hom4.4.png)
 
 **5 задание**
+
+![](hom4.5.1.png)
+![](hom4.5.2.png)
+![](hom4.5.3.png)
