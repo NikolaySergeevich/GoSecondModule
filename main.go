@@ -49,7 +49,6 @@ func Create(w http.ResponseWriter, r *http.Request) {
 		}
 		defer r.Body.Close()
 		text := string(textBytes)
-
 		resp, err := http.Post(courentyHost+"/create", "Content-Type: application/json", bytes.NewBuffer([]byte(text)))
 		if err != nil {
 			log.Fatal(err)
